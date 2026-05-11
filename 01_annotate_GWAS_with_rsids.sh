@@ -21,6 +21,7 @@ gunzip "$basename$extension" # unzip
 awk '{ if ($1 != 23) { print }
        else if ($1 == 23) { $1 = "X"; print }
      }' "$basename".txt > tmp_files/tmp_file
+[ -s tmp_files/tmp_file  ] || { echo "File missing or empty"; exit 1; }
 gzip "$basename".txt # zip again
 
 # 2) Extract chr:pos present in GWAS file from the dbSNP ref file
