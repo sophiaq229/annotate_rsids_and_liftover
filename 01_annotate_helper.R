@@ -29,7 +29,7 @@ gwas_data <- vroom::vroom(gwas_file_in,
 print("Reading and processing rsID annotation data ..")
 annot <- vroom::vroom(rsid_subset_file, col_names = c("SNP", "CHR", "POS", "ALLELE0", "ALLELE1"), show_col_types=F)
 # tidy up multiallelic varaints (they are listed in a signle row e.g A:TA,TAA,TAAA - this will split them into multiple rows)
-annot <- annot %>% tidyr::separate_rows(ALLELE1, sep = ",") 
+annot <- annot %>% tidyr::separate_rows(ALLELE1, sep = ",") %>% mutate(POS=as.numeric(POS))
 
 # ----------------------------------------
 # Merging annotation data
